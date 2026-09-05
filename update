@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>iZma Travel & Tour | Your Journey, Our Priority</title>
+<meta name="description" content="Flight tickets, visa support, hotels, Umrah, tours and travel assistance from Jeddah, Saudi Arabia.">
+<meta name="theme-color" content="#071b3a">
+<style>
+:root{
+  --navy:#071b3a;--blue:#0b4ea2;--sky:#eaf5ff;--orange:#f39a24;--gold:#ffc45a;
+  --ink:#10223d;--muted:#61728a;--white:#fff;--line:#dce7f3;
+  --shadow:0 20px 60px rgba(7,27,58,.10)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#f7fbff}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+.top{background:var(--navy);color:#fff;font-size:13px;padding:9px 5vw;display:flex;justify-content:space-between;gap:20px}
+.top span{opacity:.92}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid #dbe7f2;display:flex;align-items:center;justify-content:space-between;padding:9px 5vw;min-height:82px}
+.brand{display:flex;align-items:center;min-width:170px}
+.logo{height:70px;width:auto;max-width:180px;object-fit:contain;display:block}
+.nav-center{display:flex;align-items:center;gap:28px;font-weight:750;font-size:14px}
+.nav-center a{position:relative;padding:8px 0}
+.nav-center a:after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:2px;background:var(--orange);transition:.2s}
+.nav-center a:hover{color:var(--blue)}
+.nav-center a:hover:after{right:0}
+.nav-actions{display:flex;align-items:center;gap:9px}
+.social{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.2s}
+.social:hover{transform:translateY(-2px);border-color:#bfd3e7;box-shadow:0 8px 20px rgba(7,27,58,.08)}
+.social svg{width:18px;height:18px;fill:currentColor}
+.cta{background:var(--orange);color:#111;padding:12px 18px;border-radius:999px;font-weight:850;box-shadow:0 8px 24px rgba(243,154,36,.25);white-space:nowrap}
+.menu-btn{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;align-items:center;justify-content:center;font-size:22px}
+.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--line);padding:12px 5vw 18px}
+.mobile-menu.open{display:grid;gap:8px}
+.mobile-menu a{padding:12px 8px;border-radius:10px;font-weight:750}
+.mobile-menu a:hover{background:var(--sky)}
+
+.hero{min-height:680px;position:relative;overflow:hidden;background:radial-gradient(circle at 78% 18%,#7ec6ff 0,#bfe5ff 18%,transparent 38%),linear-gradient(120deg,#061938 0%,#0a3876 48%,#0e6dbb 100%);color:white}
+.hero:after{content:"";position:absolute;inset:auto -5% -180px;height:300px;background:#f7fbff;border-radius:50% 50% 0 0/100% 100% 0 0;transform:rotate(-2deg)}
+.hero-inner{position:relative;z-index:2;max-width:1250px;margin:auto;padding:82px 5vw 160px;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+.eyebrow{display:inline-flex;gap:9px;align-items:center;background:#ffffff18;border:1px solid #ffffff2e;border-radius:999px;padding:9px 14px;font-weight:750;font-size:13px;letter-spacing:.4px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px var(--gold)}
+h1{font-size:clamp(44px,6vw,78px);line-height:.98;margin:24px 0 20px;letter-spacing:-3px}
+h1 em{font-style:normal;color:#ffc45a}
+.hero p{font-size:19px;line-height:1.7;color:#dcecff;max-width:650px}
+.actions{display:flex;gap:14px;margin:30px 0;flex-wrap:wrap}
+.btn{padding:15px 22px;border-radius:12px;font-weight:850;border:1px solid #ffffff35}
+.btn.primary{background:var(--orange);color:#111;border:0}
+.btn.ghost{background:#ffffff12}
+.trust{display:flex;gap:25px;flex-wrap:wrap;margin-top:25px;color:#d9e8fa;font-size:13px}
+.trust b{display:block;color:#fff;font-size:17px}
+.plane-wrap{position:relative;height:390px}
+.plane{position:absolute;right:2%;top:50%;transform:translateY(-50%) rotate(-8deg);font-size:190px;filter:drop-shadow(0 35px 28px #00132e66)}
+.orb{position:absolute;border-radius:50%;filter:blur(1px);opacity:.7}
+.o1{width:210px;height:210px;background:#ffffff14;right:80px;top:40px}
+.o2{width:80px;height:80px;background:#ffc45a33;right:10px;bottom:50px}
+
+.search-card{max-width:1120px;margin:-70px auto 0;position:relative;z-index:8;background:white;border-radius:24px;box-shadow:var(--shadow);padding:24px;border:1px solid #e4edf6}
+.tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:18px;overflow:auto}
+.tab{border:0;background:transparent;padding:11px 15px;border-radius:10px;font-weight:850;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab.active{background:#eaf4ff;color:var(--blue)}
+.fields{display:grid;grid-template-columns:1.2fr 1.2fr 1fr 1fr auto;gap:12px}
+.field{border:1px solid var(--line);border-radius:13px;padding:11px 13px;background:#fbfdff}
+.field small{display:block;color:var(--muted);font-weight:750;margin-bottom:5px}
+.field input{border:0;outline:0;background:transparent;width:100%;font-weight:750;color:var(--ink)}
+.searchbtn{border:0;border-radius:13px;background:var(--navy);color:#fff;font-weight:850;padding:0 22px;cursor:pointer;min-height:54px}
+.searchbtn:hover{background:#0b2b59}
+
+.section{max-width:1180px;margin:100px auto;padding:0 5vw}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:35px}
+.section h2{font-size:42px;letter-spacing:-1.5px;margin:0}
+.lead{color:var(--muted);max-width:600px;line-height:1.7}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:white;border:1px solid var(--line);border-radius:20px;padding:25px;box-shadow:0 10px 35px rgba(7,27,58,.04);transition:.25s}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.icon{width:48px;height:48px;border-radius:14px;background:#eaf4ff;color:var(--blue);display:grid;place-items:center;font-size:23px;margin-bottom:20px}
+.card h3{margin:0 0 9px}
+.card p{color:var(--muted);line-height:1.6;font-size:14px}
+.feature{background:var(--navy);color:#fff;border-radius:30px;padding:60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;overflow:hidden;position:relative}
+.feature:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:#0d5aa71c;right:-180px;top:-160px}
+.feature h2{font-size:45px;margin:0 0 18px;letter-spacing:-1px}
+.feature p{color:#bfd0e5;line-height:1.75}
+.points{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:25px}
+.point{border:1px solid #ffffff1f;background:#ffffff0a;padding:17px;border-radius:14px}
+.point b{display:block;margin-bottom:5px}
+.point span{font-size:13px;color:#b9cbe1}
+.quote{background:linear-gradient(135deg,#fff,#edf7ff);border:1px solid var(--line);border-radius:24px;padding:35px}
+.quote p{font-size:21px;line-height:1.55;font-weight:750}
+.quote small{color:var(--muted)}
+.destinations{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.destination{min-height:230px;border-radius:22px;padding:25px;display:flex;flex-direction:column;justify-content:end;color:#fff;overflow:hidden;position:relative;background:linear-gradient(135deg,#0b4ea2,#0a2348)}
+.destination:nth-child(2){background:linear-gradient(135deg,#1165aa,#173d70)}
+.destination:nth-child(3){background:linear-gradient(135deg,#d57a18,#7e3d09)}
+.destination:before{content:"✈";position:absolute;right:25px;top:22px;font-size:50px;opacity:.16;transform:rotate(-20deg)}
+.destination h3{font-size:26px;margin:0 0 5px}
+.destination span{opacity:.85}
+
+.footer{background:#04142d;color:#b9c9dc;padding:55px 5vw 25px}
+.footer-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:35px}
+.footer img{height:72px;max-width:190px;object-fit:contain;background:white;border-radius:12px;padding:7px;margin-bottom:15px}
+.footer h4{color:white;margin:0 0 15px}
+.footer a,.footer p{display:block;font-size:14px;line-height:1.9;margin:4px 0}
+.footer-social{display:flex;gap:9px;margin-top:16px}
+.footer-social .social{background:#0b244b;color:#fff;border-color:#17355d}
+.copy{max-width:1180px;margin:35px auto 0;border-top:1px solid #ffffff17;padding-top:18px;font-size:12px}
+
+.floating-wa{position:fixed;right:20px;bottom:20px;z-index:60;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 12px 35px rgba(0,0,0,.2)}
+.floating-wa svg{width:29px;height:29px;fill:currentColor}
+
+@media(max-width:980px){
+  .nav-center{display:none}
+  .nav-actions .social{display:none}
+  .menu-btn{display:flex}
+  .hero-inner{grid-template-columns:1fr;padding-top:55px}
+  .plane-wrap{height:220px}
+  .plane{font-size:130px;right:10%}
+  .fields{grid-template-columns:1fr 1fr}
+  .searchbtn{height:52px}
+  .cards{grid-template-columns:1fr 1fr}
+  .feature{grid-template-columns:1fr;padding:35px}
+  .destinations{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .top{display:none}
+  .nav{padding:8px 4vw;min-height:70px}
+  .logo{height:56px;max-width:150px}
+  .nav-actions .cta{display:none}
+  .hero-inner{padding:45px 5vw 120px}
+  .hero p{font-size:16px}
+  .search-card{margin:-45px 4vw 0;padding:16px}
+  .fields{grid-template-columns:1fr}
+  .section{margin:70px auto}
+  .section h2{font-size:32px}
+  .cards{grid-template-columns:1fr}
+  .points{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  h1{letter-spacing:-2px}
+  .feature h2{font-size:34px}
+  .floating-wa{right:14px;bottom:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span>✈ Premium travel assistance from Jeddah</span>
+  <span>WhatsApp / Call: +966 510 880 809</span>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#home" aria-label="iZma Travel home">
+    <img class="logo" src="izma-logo.png" alt="iZma Travel & Tour logo">
+  </a>
+
+  <div class="nav-center">
+    <a href="#services">Services</a>
+    <a href="#shonge">Shonge by Izma</a>
+    <a href="#destinations">Destinations</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="nav-actions">
+    <a class="social" href="https://www.facebook.com/izma.travel.tours" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M13.8 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.7 1.8-1.7h1.9V2.5c-.3 0-1.5-.1-2.8-.1-2.8 0-4.7 1.7-4.7 4.8v2.7H7v3.5h3V22h3.8z"/></svg>
+    </a>
+    <a class="social" href="https://www.instagram.com/izma_traveltour/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.1 1.5a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+    </a>
+    <a class="cta" href="https://wa.me/966510880809?text=Hello%20iZma%20Travel%20%26%20Tour%2C%20I%20would%20like%20to%20make%20a%20booking." target="_blank" rel="noopener">Book on WhatsApp</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services">Services</a>
+  <a href="#shonge">Shonge by Izma</a>
+  <a href="#destinations">Destinations</a>
+  <a href="#contact">Contact</a>
+  <a href="https://www.facebook.com/izma.travel.tours" target="_blank" rel="noopener">Facebook</a>
+  <a href="https://www.instagram.com/izma_traveltour/" target="_blank" rel="noopener">Instagram</a>
+  <a href="https://wa.me/966510880809" target="_blank" rel="noopener">WhatsApp Booking</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> YOUR JOURNEY, OUR PRIORITY</div>
+      <h1>Fly with confidence.<br><em>Travel with iZma.</em></h1>
+      <p>Premium flight tickets, visa support, hotels, Umrah and travel services — with dedicated assistance for passengers travelling between Saudi Arabia, Bangladesh and the world.</p>
+      <div class="actions">
+        <a class="btn primary" href="#booking">Search a Journey →</a>
+        <a class="btn ghost" href="#services">Explore Services</a>
+      </div>
+      <div class="trust">
+        <div><b>24/7</b>Customer support</div>
+        <div><b>Worldwide</b>Travel options</div>
+        <div><b>Jeddah</b>Saudi Arabia</div>
+      </div>
+    </div>
+    <div class="plane-wrap"><div class="orb o1"></div><div class="orb o2"></div><div class="plane">✈️</div></div>
+  </div>
+</section>
+
+<div class="search-card" id="booking">
+  <div class="tabs">
+    <button class="tab active" data-trip="Round Trip">Round Trip</button>
+    <button class="tab" data-trip="One Way">One Way</button>
+    <button class="tab" data-trip="Multi-City">Multi-City</button>
+  </div>
+  <div class="fields">
+    <label class="field"><small>From</small><input id="from" placeholder="Jeddah (JED)"></label>
+    <label class="field"><small>To</small><input id="to" placeholder="Dhaka (DAC)"></label>
+    <label class="field"><small>Departure</small><input id="departure" type="date"></label>
+    <label class="field"><small>Travellers</small><input id="travellers" value="1 Adult"></label>
+    <button class="searchbtn" id="searchFlights">Check Fare on WhatsApp</button>
+  </div>
+</div>
+
+<section class="section" id="services">
+  <div class="section-head"><div><h2>Everything for your journey.</h2><p class="lead">From the first fare check to the final arrival, iZma is built around simple booking and dependable passenger support.</p></div></div>
+  <div class="cards">
+    <article class="card"><div class="icon">✈</div><h3>Air Ticketing</h3><p>Domestic and international fares, date changes, reissues and route options.</p></article>
+    <article class="card"><div class="icon">▣</div><h3>Visa Support</h3><p>Guidance and assistance for eligible travel and visa requirements.</p></article>
+    <article class="card"><div class="icon">⌂</div><h3>Hotels & Transfers</h3><p>Comfortable stays and airport or local transportation arrangements.</p></article>
+    <article class="card"><div class="icon">◉</div><h3>Umrah & Tours</h3><p>Packages, transport and travel assistance for meaningful journeys.</p></article>
+  </div>
+</section>
+
+<section class="section" id="shonge">
+  <div class="feature">
+    <div>
+      <div class="eyebrow">SPECIAL PASSENGER CARE</div>
+      <h2>Shonge by Izma</h2>
+      <p>We don't just book your ticket — we stay with your loved ones until they're safely on their way. A dedicated assistance service for Bangladeshi women travelling with children, elderly passengers and anyone who needs extra support.</p>
+      <a class="btn primary" href="https://wa.me/966510880809?text=I%20need%20Shonge%20by%20Izma%20assistance" target="_blank" rel="noopener">Request Assistance →</a>
+    </div>
+    <div class="points">
+      <div class="point"><b>Airport guidance</b><span>Support through key travel steps.</span></div>
+      <div class="point"><b>Family-focused</b><span>Designed around passenger comfort.</span></div>
+      <div class="point"><b>Bangla support</b><span>Easy communication for families.</span></div>
+      <div class="point"><b>Travel updates</b><span>Help with changes and questions.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="destinations">
+  <div class="section-head"><div><h2>Popular journeys</h2><p class="lead">Tell us where you want to go. We'll help you compare suitable routes and fares.</p></div></div>
+  <div class="destinations">
+    <div class="destination"><h3>Jeddah → Dhaka</h3><span>Saudi Arabia ↔ Bangladesh</span></div>
+    <div class="destination"><h3>Riyadh → Dhaka</h3><span>Saudi Arabia ↔ Bangladesh</span></div>
+    <div class="destination"><h3>Worldwide</h3><span>International destinations</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="quote"><p>“Your journey should feel simple. Our job is to take care of the details.”</p><small>— iZma Travel & Tour</small></div>
+</section>
+
+<footer class="footer" id="contact">
+  <div class="footer-inner">
+    <div>
+      <img src="izma-logo.png" alt="iZma Travel & Tour">
+      <p>Premium travel assistance from Jeddah, serving Bangladeshi travellers and international journeys.</p>
+      <div class="footer-social">
+        <a class="social" href="https://www.facebook.com/izma.travel.tours" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M13.8 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.7 1.8-1.7h1.9V2.5c-.3 0-1.5-.1-2.8-.1-2.8 0-4.7 1.7-4.7 4.8v2.7H7v3.5h3V22h3.8z"/></svg>
+        </a>
+        <a class="social" href="https://www.instagram.com/izma_traveltour/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.1 1.5a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div><h4>Services</h4><a href="#services">Air Ticketing</a><a href="#services">Visa Support</a><a href="#services">Hotels & Transfers</a><a href="#services">Umrah & Tours</a></div>
+    <div><h4>Contact</h4><a href="https://wa.me/966510880809" target="_blank" rel="noopener">WhatsApp: +966 510 880 809</a><a href="mailto:izma.travelsales01@gmail.com">izma.travelsales01@gmail.com</a><p>Jeddah, Kingdom of Saudi Arabia</p></div>
+    <div><h4>Quick booking</h4><a class="cta" href="https://wa.me/966510880809" target="_blank" rel="noopener">Chat on WhatsApp</a><p>For live fares, availability and booking assistance, message us directly.</p></div>
+  </div>
+  <div class="copy">© 2026 iZma Travel & Tour. All rights reserved.</div>
+</footer>
+
+<a class="floating-wa" href="https://wa.me/966510880809?text=Hello%20iZma%20Travel%20%26%20Tour" target="_blank" rel="noopener" aria-label="Chat with iZma Travel on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M19.11 17.21c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26s.97 2.62 1.1 2.8c.14.18 1.9 2.9 4.61 4.07.64.28 1.14.45 1.53.57.64.2 1.23.17 1.69.1.52-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32zM16.03 3C8.86 3 3.03 8.79 3.03 15.93c0 2.57.75 5.08 2.17 7.22L3 29l6.03-2.12a13.03 13.03 0 0 0 6.99 2.01h.01C23.2 28.89 29 23.1 29 15.96 29 8.81 23.2 3 16.03 3zm0 23.71h-.01a10.82 10.82 0 0 1-5.52-1.51l-.4-.24-3.58 1.26 1.19-3.48-.26-.41a10.72 10.72 0 0 1-1.65-5.72c0-5.9 4.81-10.7 10.73-10.7 5.91 0 10.72 4.8 10.72 10.71 0 5.9-4.81 10.69-10.72 10.69z"/></svg>
+</a>
+
+<script>
+let currentTrip = 'Round Trip';
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    currentTrip = t.dataset.trip || t.textContent.trim();
+  });
+});
+
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+menuBtn.addEventListener('click',()=>{
+  const open = mobileMenu.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  menuBtn.textContent = open ? '✕' : '☰';
+});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  mobileMenu.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded','false');
+  menuBtn.textContent='☰';
+}));
+
+document.getElementById('searchFlights').addEventListener('click',()=>{
+  const from = document.getElementById('from').value || 'Not specified';
+  const to = document.getElementById('to').value || 'Not specified';
+  const departure = document.getElementById('departure').value || 'Not specified';
+  const travellers = document.getElementById('travellers').value || '1 Adult';
+  const message = `Hello iZma Travel & Tour,%0A%0AI would like to check a flight fare.%0A%0ATrip: ${encodeURIComponent(currentTrip)}%0AFrom: ${encodeURIComponent(from)}%0ATo: ${encodeURIComponent(to)}%0ADeparture: ${encodeURIComponent(departure)}%0ATravellers: ${encodeURIComponent(travellers)}`;
+  window.open(`https://wa.me/966510880809?text=${message}`,'_blank','noopener');
+});
+</script>
+</body>
+</html>
