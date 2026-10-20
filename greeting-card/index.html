@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Greeting Card Maker | iZma Travel & Tour</title>
+<meta name="description" content="Create a personalized Bangla and English greeting card with iZma Travel & Tour branding.">
+<style>
+:root{--navy:#092b55;--blue:#1769aa;--gold:#e3ad42;--pale:#f1f7fc}
+*{box-sizing:border-box}body{margin:0;background:var(--pale);color:#17324e;font-family:Arial,"Noto Sans Bengali","Hind Siliguri",sans-serif}
+header{background:linear-gradient(120deg,#061c3b,#1769aa);color:#fff;padding:18px 16px;text-align:center}
+header img{height:60px;max-width:200px;object-fit:contain;background:white;border-radius:10px;padding:4px}
+header p{margin:8px 0 0;color:#e7f2ff}
+main{max-width:1100px;margin:24px auto;padding:0 14px;display:grid;grid-template-columns:minmax(270px,350px) 1fr;gap:20px}
+.panel{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 28px #18304b12;min-width:0}
+h2{font-size:20px;margin:0 0 16px}label{display:block;font-size:14px;font-weight:700;margin:13px 0 6px}
+input,select,textarea{width:100%;border:1px solid #cbd7e4;border-radius:10px;padding:11px;font:inherit;background:white}
+textarea{min-height:80px;resize:vertical}button{border:0;border-radius:11px;padding:12px 15px;font-weight:700;cursor:pointer;font-size:15px}
+.primary{background:#1769aa;color:#fff;width:100%;margin-top:15px}.secondary{background:#e8f1fa;color:#164b7a;width:100%;margin-top:9px}
+.canvas-wrap{width:100%;max-width:680px;margin:auto}canvas{display:block;width:100%;height:auto;border-radius:12px;background:#eaf4ff}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.note{font-size:12px;line-height:1.55;color:#62758a;margin-top:12px}
+footer{text-align:center;color:#687a8c;font-size:12px;padding:22px}
+@media(max-width:760px){main{grid-template-columns:1fr}.preview{order:1}.editor{order:2}}
+</style></head>
+<body>
+<header><img src="../izma-logo.png" alt="iZma Travel & Tour logo"><p>Create your own greeting card • নিজের শুভেচ্ছা কার্ড নিজেই বানান</p></header>
+<main>
+<section class="panel editor"><h2>Personalize your card</h2>
+<label for="photo">📷 Upload your photo / ছবি আপলোড করুন</label><input id="photo" type="file" accept="image/*">
+<label for="name">✍️ Your name / নাম</label><input id="name" maxlength="60" placeholder="Enter your name / আপনার নাম">
+<label for="designation">Designation / পদবি</label><input id="designation" maxlength="80" placeholder="e.g. Business Owner">
+<label for="occasion">Greeting / শুভেচ্ছা</label><select id="occasion">
+<option value="শুভেচ্ছা ও অভিনন্দন|Warm Wishes & Congratulations">শুভেচ্ছা ও অভিনন্দন | Warm Wishes</option>
+<option value="শুভ জন্মদিন|Happy Birthday">শুভ জন্মদিন | Happy Birthday</option>
+<option value="শুভ বিবাহবার্ষিকী|Happy Anniversary">শুভ বিবাহবার্ষিকী | Happy Anniversary</option>
+<option value="জুম্মা মোবারক|Jummah Mubarak">জুম্মা মোবারক | Jummah Mubarak</option>
+<option value="ঈদ মোবারক|Eid Mubarak">ঈদ মোবারক | Eid Mubarak</option>
+<option value="সৌদি জাতীয় দিবসের শুভেচ্ছা|Happy Saudi National Day">সৌদি জাতীয় দিবস | Saudi National Day</option></select>
+<label for="message">Message / বার্তা</label><textarea id="message" maxlength="220">আপনার জীবনে বয়ে আসুক সুখ, শান্তি ও সাফল্য।
+Wishing you happiness, good health and success.</textarea>
+<button class="primary" id="refresh">Update card / কার্ড তৈরি করুন</button>
+<p class="note">Your photo is processed locally in your browser and is not uploaded by this page.</p></section>
+<section class="panel preview"><h2>Live preview / কার্ডের নমুনা</h2><div class="canvas-wrap"><canvas id="card" width="1080" height="1080" aria-label="Greeting card preview"></canvas></div>
+<div class="actions"><button class="primary" id="download">📥 Download PNG</button><button class="secondary" id="share">Share card</button></div>
+<p class="note">Download the card and share it on Facebook or WhatsApp. Sharing directly depends on your browser and device.</p></section>
+</main><footer>iZma Travel & Tour • Your Journey, Our Priority • www.izmatravel.com</footer>
+<script>
+const canvas=document.getElementById('card'),ctx=canvas.getContext('2d'),$=id=>document.getElementById(id);let portrait=null,logo=new Image();logo.src='../izma-logo.png';logo.onload=draw;
+$('photo').addEventListener('change',e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(!file.type.startsWith('image/'))return alert('Please choose an image file.');const reader=new FileReader();reader.onload=()=>{const im=new Image();im.onload=()=>{portrait=im;draw()};im.src=reader.result};reader.readAsDataURL(file)});
+['name','designation','occasion','message'].forEach(id=>$(id).addEventListener('input',draw));$('refresh').addEventListener('click',draw);
+function rounded(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
+function wrapped(text,x,y,maxWidth,lineHeight,maxLines=3){const words=text.split(/\s+/);let line='',lines=[];for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}if(line)lines.push(line);lines.slice(0,maxLines).forEach((l,i)=>ctx.fillText(l,x,y+i*lineHeight))}
+function draw(){const W=1080,H=1080;let g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#eaf6ff');g.addColorStop(.55,'#fffaf0');g.addColorStop(1,'#d7e9f7');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.strokeStyle='#d9a441';ctx.lineWidth=7;ctx.strokeRect(28,28,W-56,H-56);ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.strokeRect(45,45,W-90,H-90);
+ctx.fillStyle='#102b50';ctx.fillRect(48,48,984,150);ctx.fillStyle='#d9a441';ctx.fillRect(48,190,984,8);
+if(logo.complete&&logo.naturalWidth){const maxW=290,maxH=120,s=Math.min(maxW/logo.naturalWidth,maxH/logo.naturalHeight);ctx.drawImage(logo,76,62,logo.naturalWidth*s,logo.naturalHeight*s)}else{ctx.fillStyle='#fff';ctx.font='bold 52px Arial';ctx.fillText('iZma Travel & Tour',78,120)}
+ctx.fillStyle='#fff';ctx.textAlign='right';ctx.font='bold 22px Arial';ctx.fillText('YOUR JOURNEY, OUR PRIORITY',1000,164);
+ctx.globalAlpha=.18;ctx.fillStyle='#1769aa';ctx.beginPath();ctx.arc(930,280,105,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(160,820,135,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+const cx=785,cy=470,r=190;ctx.fillStyle='#d9a441';ctx.beginPath();ctx.arc(cx,cy,r+13,0,Math.PI*2);ctx.fill();ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.clip();
+if(portrait){const scale=Math.max(2*r/portrait.width,2*r/portrait.height),sw=portrait.width*scale,sh=portrait.height*scale;ctx.drawImage(portrait,cx-sw/2,cy-sh/2,sw,sh)}else{ctx.fillStyle='#dbeaf5';ctx.fillRect(cx-r,cy-r,2*r,2*r);ctx.fillStyle='#1769aa';ctx.beginPath();ctx.arc(cx,cy-45,66,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(cx,cy+105,110,100,0,Math.PI,Math.PI*2);ctx.fill();ctx.fillStyle='#102b50';ctx.font='bold 23px Arial';ctx.textAlign='center';ctx.fillText('YOUR PHOTO',cx,cy+10)}ctx.restore();
+const occ=$('occasion').value.split('|');ctx.textAlign='left';ctx.fillStyle='#1769aa';ctx.font='bold 30px Arial';ctx.fillText('SPECIAL GREETINGS',90,280);ctx.fillStyle='#c18b20';ctx.font='bold 43px "Noto Sans Bengali",Arial,sans-serif';wrapped(occ[0],90,350,560,58,2);ctx.fillStyle='#102b50';ctx.font='bold 36px Arial';wrapped(occ[1],90,440,560,48,2);ctx.fillStyle='#496176';ctx.font='26px "Noto Sans Bengali",Arial,sans-serif';wrapped($('message').value,90,540,555,42,5);
+ctx.fillStyle='#102b50';rounded(90,760,900,125,24);ctx.fill();ctx.fillStyle='#d9a441';ctx.fillRect(90,760,12,125);ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='bold 40px "Noto Sans Bengali",Arial,sans-serif';wrapped($('name').value||'আপনার নাম | Your Name',125,812,820,46,1);ctx.fillStyle='#ffd16c';ctx.font='25px "Noto Sans Bengali",Arial,sans-serif';wrapped($('designation').value||'আপনার পদবি | Your Designation',125,852,820,32,1);
+ctx.fillStyle='#102b50';ctx.fillRect(48,925,984,105);ctx.fillStyle='#ffd16c';ctx.textAlign='center';ctx.font='bold 30px Arial';ctx.fillText('iZma TRAVEL & TOUR',540,970);ctx.fillStyle='#fff';ctx.font='22px Arial';ctx.fillText('www.izmatravel.com',540,1006)}
+$('download').onclick=()=>{draw();const a=document.createElement('a');a.download='izma-greeting-card.png';a.href=canvas.toDataURL('image/png');a.click()};
+$('share').onclick=()=>{draw();canvas.toBlob(async blob=>{if(!blob)return;const file=new File([blob],'izma-greeting-card.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({title:'My greeting card | iZma Travel & Tour',files:[file]});else{$('download').click();alert('Card downloaded. Share it on Facebook or WhatsApp.')}}catch(e){if(e.name!=='AbortError')alert('Please use Download PNG to save your card.')}},'image/png')};draw();
+</script></body></html>
