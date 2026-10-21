@@ -49,7 +49,7 @@ document.querySelectorAll('.design').forEach(b=>b.addEventListener('click',()=>{
 $('messagePreset').addEventListener('change',()=>{$('message').value=$('messagePreset').value;draw()});
 $('occasion').addEventListener('change',()=>{const v=$('occasion').value.split('|')[0];const map={'শুভ জন্মদিন':'Birthday','শুভ বিবাহবার্ষিকী':'Anniversary','জুম্মা মোবারক':'Jummah Mubarak','ঈদ মোবারক':'Eid Mubarak','সৌদি জাতীয় দিবসের শুভেচ্ছা':'Saudi National Day'};const target=map[v];if(target){const o=[...$('messagePreset').options].find(x=>x.textContent===target);if(o){$('messagePreset').value=o.value;$('message').value=o.value}}draw()});
 $('refresh').addEventListener('click',draw);
-const C={navy:'#092b55',blue:'#0876b9',gold:'#e5b653,',white:'#fff',ink:'#102a43',sky:'#dff2ff'};
+const C={navy:'#092b55',blue:'#0876b9',gold:'#e5b653',white:'#fff',ink:'#102a43',sky:'#dff2ff'};
 function rr(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
 function textWrap(text,x,y,maxWidth,lineHeight,maxLines,align='left'){ctx.textAlign=align;const words=(text||'').split(/\s+/);let line='',lines=[];for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}if(line)lines.push(line);lines.slice(0,maxLines).forEach((l,i)=>ctx.fillText(l,x,y+i*lineHeight))}
 function logoAt(x,y,maxW,maxH){if(logo.complete&&logo.naturalWidth){const s=Math.min(maxW/logo.naturalWidth,maxH/logo.naturalHeight);ctx.drawImage(logo,x,y,logo.naturalWidth*s,logo.naturalHeight*s)}else{ctx.fillStyle=C.navy;ctx.font='bold 30px Manrope,Arial';ctx.fillText('iZma TRAVEL & TOUR',x,y+30)}}
