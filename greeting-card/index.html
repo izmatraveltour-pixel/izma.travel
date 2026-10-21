@@ -35,8 +35,19 @@ footer{text-align:center;color:#687a8c;font-size:12px;padding:22px}
 <option value="জুম্মা মোবারক|Jummah Mubarak">জুম্মা মোবারক | Jummah Mubarak</option>
 <option value="ঈদ মোবারক|Eid Mubarak">ঈদ মোবারক | Eid Mubarak</option>
 <option value="সৌদি জাতীয় দিবসের শুভেচ্ছা|Happy Saudi National Day">সৌদি জাতীয় দিবস | Saudi National Day</option></select>
-<label for="message">Message / বার্তা</label><textarea id="message" maxlength="220">আপনার জীবনে বয়ে আসুক সুখ, শান্তি ও সাফল্য।
-Wishing you happiness, good health and success.</textarea>
+<label for="messagePreset">বাংলা শুভেচ্ছাবার্তার আইডিয়া</label>
+<select id="messagePreset">
+<option value="আপনার জীবনে বয়ে আসুক সুখ, শান্তি ও সাফল্য।\nসুস্থ থাকুন, ভালো থাকুন—প্রতিটি দিন হোক আনন্দময়।">সাধারণ শুভেচ্ছা</option>
+<option value="শুভ জন্মদিন! আপনার জীবনের নতুন বছরটি ভরে উঠুক আনন্দ, সুস্বাস্থ্য, ভালোবাসা ও সাফল্যে।">জন্মদিনের শুভেচ্ছা</option>
+<option value="শুভ বিবাহবার্ষিকী! আপনাদের ভালোবাসা, বিশ্বাস ও একসঙ্গে পথচলা দিন দিন আরও সুন্দর হোক।">বিবাহবার্ষিকীর শুভেচ্ছা</option>
+<option value="জুম্মা মোবারক। মহান আল্লাহ আমাদের সবার জীবনে শান্তি, রহমত ও বরকত দান করুন।">জুম্মা মোবারক</option>
+<option value="ঈদ মোবারক! ঈদের আনন্দ ছড়িয়ে পড়ুক প্রতিটি ঘরে। সবার জীবন ভরে উঠুক শান্তি, সুস্থতা ও বরকতে।">ঈদের শুভেচ্ছা</option>
+<option value="সৌদি জাতীয় দিবসের শুভেচ্ছা! সৌদি আরবের শান্তি, সমৃদ্ধি ও অগ্রযাত্রা অব্যাহত থাকুক।">সৌদি জাতীয় দিবস</option>
+<option value="আপনার প্রতিটি স্বপ্ন পূরণের পথে এগিয়ে যাক নতুন সাহস ও আত্মবিশ্বাস নিয়ে। রইল আন্তরিক শুভকামনা।">সাফল্য ও অনুপ্রেরণা</option>
+<option value="দূরে থাকলেও ভালোবাসা আর দোয়া সবসময় সঙ্গে আছে। আপনার ও পরিবারের জন্য রইল আন্তরিক শুভকামনা।">প্রবাসী পরিবার</option>
+</select>
+<label for="message">Message / বার্তা (সম্পাদনা করতে পারবেন)</label><textarea id="message" maxlength="220">আপনার জীবনে বয়ে আসুক সুখ, শান্তি ও সাফল্য।
+সুস্থ থাকুন, ভালো থাকুন—প্রতিটি দিন হোক আনন্দময়।</textarea>
 <button class="primary" id="refresh">Update card / কার্ড তৈরি করুন</button>
 <p class="note">Your photo is processed locally in your browser and is not uploaded by this page.</p></section>
 <section class="panel preview"><h2>Live preview / কার্ডের নমুনা</h2><div class="canvas-wrap"><canvas id="card" width="1080" height="1080" aria-label="Greeting card preview"></canvas></div>
@@ -46,7 +57,10 @@ Wishing you happiness, good health and success.</textarea>
 <script>
 const canvas=document.getElementById('card'),ctx=canvas.getContext('2d'),$=id=>document.getElementById(id);let portrait=null,logo=new Image();logo.src='../izma-logo.png';logo.onload=draw;
 $('photo').addEventListener('change',e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(!file.type.startsWith('image/'))return alert('Please choose an image file.');const reader=new FileReader();reader.onload=()=>{const im=new Image();im.onload=()=>{portrait=im;draw()};im.src=reader.result};reader.readAsDataURL(file)});
-['name','designation','occasion','message'].forEach(id=>$(id).addEventListener('input',draw));$('refresh').addEventListener('click',draw);
+['name','designation','occasion','message'].forEach(id=>$(id).addEventListener('input',draw));
+$('messagePreset').addEventListener('change',()=>{$('message').value=$('messagePreset').value.replace(/\\n/g,'\n');draw()});
+$('occasion').addEventListener('change',()=>{const v=$('occasion').value.split('|')[0];const map={'শুভ জন্মদিন':'জন্মদিনের শুভেচ্ছা','শুভ বিবাহবার্ষিকী':'বিবাহবার্ষিকীর শুভেচ্ছা','জুম্মা মোবারক':'জুম্মা মোবারক','ঈদ মোবারক':'ঈদের শুভেচ্ছা','সৌদি জাতীয় দিবসের শুভেচ্ছা':'সৌদি জাতীয় দিবস'};const target=map[v];if(target){const opts=[...$('messagePreset').options];const found=opts.find(o=>o.textContent===target);if(found){$('messagePreset').value=found.value;$('message').value=found.value.replace(/\\n/g,'\n')}}draw()});
+$('refresh').addEventListener('click',draw);
 function rounded(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
 function wrapped(text,x,y,maxWidth,lineHeight,maxLines=3){const words=text.split(/\s+/);let line='',lines=[];for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}if(line)lines.push(line);lines.slice(0,maxLines).forEach((l,i)=>ctx.fillText(l,x,y+i*lineHeight))}
 function draw(){const W=1080,H=1080;let g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#eaf6ff');g.addColorStop(.55,'#fffaf0');g.addColorStop(1,'#d7e9f7');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.strokeStyle='#d9a441';ctx.lineWidth=7;ctx.strokeRect(28,28,W-56,H-56);ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.strokeRect(45,45,W-90,H-90);
