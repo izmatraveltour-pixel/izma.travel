@@ -30,10 +30,10 @@ footer{text-align:center;color:#687a8c;font-size:12px;padding:22px}
 <label for="designation">Designation / পদবি</label><input id="designation" maxlength="80" placeholder="e.g. Business Owner">
 <label for="design">Card design / কার্ডের ডিজাইন</label>
 <select id="design">
-<option value="royal">✨ Royal Gold / রয়্যাল গোল্ড</option>
-<option value="floral">🌸 Floral Elegance / ফুলেল ডিজাইন</option>
-<option value="emerald">🌙 Emerald Islamic / ইসলামিক এমেরাল্ড</option>
-<option value="modern">💙 Modern Blue / মডার্ন ব্লু</option>
+<option value="signature">✦ Izma Signature / ইজমা সিগনেচার</option>
+<option value="flight">✈ Flight Path / ভ্রমণের পথ</option>
+<option value="postcard">▣ Travel Postcard / ট্রাভেল পোস্টকার্ড</option>
+<option value="celebration">✧ Celebration Luxe / উৎসবের আভিজাত্য</option>
 </select>
 <label for="occasion">Greeting / শুভেচ্ছা</label><select id="occasion">
 <option value="শুভেচ্ছা ও অভিনন্দন|Warm Wishes & Congratulations">শুভেচ্ছা ও অভিনন্দন | Warm Wishes</option>
@@ -72,55 +72,61 @@ function rounded(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
 function wrapped(text,x,y,maxWidth,lineHeight,maxLines=3){const words=text.split(/\s+/);let line='',lines=[];for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}if(line)lines.push(line);lines.slice(0,maxLines).forEach((l,i)=>ctx.fillText(l,x,y+i*lineHeight))}
 function draw(){
 const W=1080,H=1080,style=$('design').value,occ=$('occasion').value.split('|');
-const themes={
-royal:{bg1:'#fff8e7',bg2:'#dcecff',deep:'#102b50',accent:'#d6a43b',ink:'#173653',soft:'#f9e8b5'},
-floral:{bg1:'#fff1f5',bg2:'#fffaf0',deep:'#783d5b',accent:'#d989a8',ink:'#63334b',soft:'#ffe0eb'},
-emerald:{bg1:'#e6f5ed',bg2:'#fff7df',deep:'#064e3b',accent:'#d7b65d',ink:'#0b4939',soft:'#d5eee2'},
-modern:{bg1:'#e8f4ff',bg2:'#f7fbff',deep:'#123f70',accent:'#4aa3d8',ink:'#163d63',soft:'#d3eaff'}
-};
-const t=themes[style]||themes.royal;
-let g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,t.bg1);g.addColorStop(1,t.bg2);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-// Decorative frame and template-specific accents
-ctx.strokeStyle=t.accent;ctx.lineWidth=7;ctx.strokeRect(28,28,W-56,H-56);ctx.strokeStyle='#ffffff';ctx.lineWidth=3;ctx.strokeRect(45,45,W-90,H-90);
-if(style==='royal'){
-ctx.fillStyle=t.deep;ctx.fillRect(48,48,984,155);ctx.fillStyle=t.accent;ctx.fillRect(48,193,984,10);
-for(let i=0;i<7;i++){ctx.strokeStyle=t.accent;ctx.lineWidth=3;ctx.beginPath();ctx.arc(930,300,28+i*15,0,Math.PI*2);ctx.stroke()}
-}else if(style==='floral'){
-ctx.fillStyle=t.deep;ctx.fillRect(48,48,984,155);
-for(let i=0;i<18;i++){const x=70+(i*71)%940,y=225+(i*113)%700;ctx.fillStyle=i%2?t.accent:'#f3b9cb';ctx.globalAlpha=.38;for(let p=0;p<5;p++){const a=p*Math.PI*2/5;ctx.beginPath();ctx.ellipse(x+Math.cos(a)*13,y+Math.sin(a)*13,9,16,a,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;ctx.fillStyle='#e8b64f';ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fill()}
-}else if(style==='emerald'){
-ctx.fillStyle=t.deep;ctx.fillRect(48,48,984,155);ctx.fillStyle=t.accent;ctx.fillRect(48,193,984,8);
-ctx.strokeStyle=t.accent;ctx.lineWidth=4;for(let i=0;i<8;i++){ctx.beginPath();ctx.moveTo(540,225+i*18);ctx.lineTo(550+i*15,240+i*18);ctx.lineTo(540,255+i*18);ctx.lineTo(530-i*15,240+i*18);ctx.closePath();ctx.stroke()}
+const t={navy:'#082c55',blue:'#0876b9',sky:'#eaf5fc',gold:'#e3b34e',white:'#ffffff',ink:'#123457',pale:'#f7fbff'};
+const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,t.sky);bg.addColorStop(1,t.pale);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ctx.fillStyle=t.navy;ctx.fillRect(0,0,W,205);
+ctx.fillStyle=t.gold;ctx.fillRect(0,198,W,8);
+ctx.strokeStyle=t.gold;ctx.lineWidth=3;ctx.strokeRect(24,24,W-48,H-48);ctx.strokeStyle='#ffffff';ctx.lineWidth=2;ctx.strokeRect(39,39,W-78,H-78);
+if(logo.complete&&logo.naturalWidth){const maxW=310,maxH=125,s=Math.min(maxW/logo.naturalWidth,maxH/logo.naturalHeight);ctx.drawImage(logo,72,48,logo.naturalWidth*s,logo.naturalHeight*s)}else{ctx.fillStyle=t.white;ctx.font='bold 48px Arial';ctx.fillText('iZma Travel & Tour',72,112)}
+ctx.textAlign='right';ctx.fillStyle=t.white;ctx.font='bold 19px Arial';ctx.fillText('YOUR JOURNEY, OUR PRIORITY',1000,165);
+function plane(x,y,size,color){ctx.save();ctx.translate(x,y);ctx.rotate(-.25);ctx.fillStyle=color;ctx.font='bold '+size+'px Arial';ctx.textAlign='center';ctx.fillText('✈',0,0);ctx.restore()}
+function route(x1,y1,x2,y2){ctx.save();ctx.strokeStyle=t.blue;ctx.lineWidth=4;ctx.setLineDash([9,12]);ctx.beginPath();ctx.moveTo(x1,y1);ctx.bezierCurveTo(x1+130,y1-85,x2-140,y2+85,x2,y2);ctx.stroke();ctx.setLineDash([]);plane((x1+x2)/2,(y1+y2)/2-12,42,t.gold);ctx.restore()}
+function stamp(x,y,r,label){ctx.save();ctx.strokeStyle=t.gold;ctx.lineWidth=5;ctx.setLineDash([7,5]);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=t.navy;ctx.textAlign='center';ctx.font='bold 18px Arial';ctx.fillText(label,x,y+6);ctx.restore()}
+function photoCircle(cx,cy,r){ctx.save();ctx.fillStyle=t.gold;ctx.beginPath();ctx.arc(cx,cy,r+13,0,Math.PI*2);ctx.fill();ctx.fillStyle=t.white;ctx.beginPath();ctx.arc(cx,cy,r+5,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.clip();if(portrait){const s=Math.max(2*r/portrait.width,2*r/portrait.height),w=portrait.width*s,h=portrait.height*s;ctx.drawImage(portrait,cx-w/2,cy-h/2,w,h)}else{ctx.fillStyle='#d5eaf8';ctx.fillRect(cx-r,cy-r,2*r,2*r);ctx.fillStyle=t.blue;ctx.beginPath();ctx.arc(cx,cy-35,55,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(cx,cy+95,95,90,0,Math.PI,Math.PI*2);ctx.fill();ctx.fillStyle=t.navy;ctx.font='bold 20px Arial';ctx.textAlign='center';ctx.fillText('YOUR PHOTO',cx,cy+12)}ctx.restore()}
+if(style==='signature'){
+ctx.fillStyle=t.white;ctx.beginPath();ctx.moveTo(58,240);ctx.lineTo(1022,240);ctx.lineTo(1022,905);ctx.lineTo(58,905);ctx.closePath();ctx.fill();ctx.strokeStyle='#d5e6f2';ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle=t.blue;ctx.textAlign='left';ctx.font='bold 26px Arial';ctx.fillText('A SPECIAL MESSAGE FOR YOU',88,290);
+ctx.fillStyle=t.gold;ctx.fillRect(88,309,150,5);
+ctx.fillStyle=t.navy;ctx.font='bold 43px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped(occ[0],88,380,560,58,2);
+ctx.fillStyle=t.blue;ctx.font='bold 30px Arial';wrapped(occ[1],88,465,560,42,2);
+ctx.fillStyle=t.ink;ctx.font='27px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('message').value,88,550,550,43,5);
+photoCircle(795,500,158);stamp(910,700,57,'IZMA');route(680,730,910,780);
+}else if(style==='flight'){
+ctx.fillStyle=t.white;ctx.beginPath();ctx.roundRect(60,240,960,665,34);ctx.fill();
+ctx.fillStyle=t.navy;ctx.fillRect(60,240,960,95);ctx.fillStyle=t.gold;ctx.fillRect(60,329,960,6);
+ctx.fillStyle=t.white;ctx.textAlign='left';ctx.font='bold 25px Arial';ctx.fillText('BOARDING PASS • GREETINGS EDITION',92,300);
+ctx.fillStyle=t.navy;ctx.font='bold 41px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped(occ[0],92,405,550,55,2);
+ctx.fillStyle=t.blue;ctx.font='bold 29px Arial';wrapped(occ[1],92,480,550,42,2);
+ctx.fillStyle=t.ink;ctx.font='26px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('message').value,92,555,540,42,4);
+photoCircle(800,515,145);route(690,710,900,765);
+ctx.setLineDash([8,8]);ctx.strokeStyle=t.gold;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(665,350);ctx.lineTo(665,870);ctx.stroke();ctx.setLineDash([]);
+}else if(style==='postcard'){
+ctx.fillStyle=t.white;ctx.fillRect(58,240,964,665);ctx.strokeStyle=t.gold;ctx.lineWidth=4;ctx.strokeRect(58,240,964,665);
+ctx.fillStyle=t.blue;ctx.fillRect(58,240,964,17);
+photoCircle(300,520,168);
+stamp(302,755,54,'TRAVEL');
+ctx.fillStyle=t.navy;ctx.textAlign='left';ctx.font='bold 24px Arial';ctx.fillText('GREETINGS FROM IZMA',535,330);
+ctx.fillStyle=t.gold;ctx.fillRect(535,350,390,5);
+ctx.fillStyle=t.navy;ctx.font='bold 38px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped(occ[0],535,420,430,53,2);
+ctx.fillStyle=t.blue;ctx.font='bold 26px Arial';wrapped(occ[1],535,495,430,39,2);
+ctx.fillStyle=t.ink;ctx.font='24px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('message').value,535,570,420,39,5);
+route(510,780,890,820);
 }else{
-ctx.fillStyle=t.deep;ctx.fillRect(48,48,984,155);ctx.fillStyle=t.accent;ctx.fillRect(48,193,984,8);
-ctx.fillStyle=t.accent;ctx.beginPath();ctx.moveTo(850,203);ctx.lineTo(1032,203);ctx.lineTo(1032,385);ctx.closePath();ctx.fill();
-ctx.globalAlpha=.2;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(965,290,78,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+ctx.fillStyle=t.navy;ctx.beginPath();ctx.roundRect(58,238,964,670,38);ctx.fill();
+ctx.strokeStyle=t.gold;ctx.lineWidth=4;ctx.beginPath();ctx.roundRect(77,257,926,632,28);ctx.stroke();
+for(let i=0;i<16;i++){const x=90+i*60;ctx.fillStyle=t.gold;ctx.beginPath();ctx.arc(x,280+(i%2)*7,3,0,Math.PI*2);ctx.fill()}
+ctx.fillStyle=t.gold;ctx.textAlign='center';ctx.font='bold 24px Arial';ctx.fillText('WITH WARM WISHES FROM IZMA',540,330);
+ctx.fillStyle=t.white;ctx.font='bold 45px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped(occ[0],540,410,820,58,2);
+ctx.fillStyle='#dceeff';ctx.font='bold 29px Arial';wrapped(occ[1],540,490,820,43,2);
+photoCircle(540,680,108);
+ctx.fillStyle=t.white;ctx.font='25px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('message').value,540,830,820,34,2);
 }
-if(logo.complete&&logo.naturalWidth){const maxW=290,maxH=120,s=Math.min(maxW/logo.naturalWidth,maxH/logo.naturalHeight);ctx.drawImage(logo,76,62,logo.naturalWidth*s,logo.naturalHeight*s)}else{ctx.fillStyle='#fff';ctx.font='bold 52px Arial';ctx.fillText('iZma Travel & Tour',78,120)}
-ctx.fillStyle='#fff';ctx.textAlign='right';ctx.font='bold 22px Arial';ctx.fillText('YOUR JOURNEY, OUR PRIORITY',1000,164);
-// Heading
-ctx.textAlign='left';ctx.fillStyle=t.deep;ctx.font='bold 29px Arial';ctx.fillText('SPECIAL GREETINGS',86,278);
-ctx.fillStyle=t.accent;ctx.fillRect(88,296,180,6);
-ctx.fillStyle=t.ink;ctx.font='bold 43px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped(occ[0],88,365,560,58,2);
-ctx.fillStyle=t.deep;ctx.font='bold 34px Arial';wrapped(occ[1],88,450,560,45,2);
-ctx.fillStyle=t.ink;ctx.font='27px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('message').value,88,540,560,43,5);
-// Portrait frame, shifted right
-const cx=790,cy=475,r=177;
-ctx.fillStyle=t.accent;ctx.beginPath();ctx.arc(cx,cy,r+15,0,Math.PI*2);ctx.fill();
-ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(cx,cy,r+6,0,Math.PI*2);ctx.fill();
-ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.clip();
-if(portrait){const scale=Math.max(2*r/portrait.width,2*r/portrait.height),sw=portrait.width*scale,sh=portrait.height*scale;ctx.drawImage(portrait,cx-sw/2,cy-sh/2,sw,sh)}
-else{ctx.fillStyle=t.soft;ctx.fillRect(cx-r,cy-r,2*r,2*r);ctx.fillStyle=t.deep;ctx.beginPath();ctx.arc(cx,cy-45,61,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(cx,cy+105,104,95,0,Math.PI,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='bold 22px Arial';ctx.fillText('YOUR PHOTO',cx,cy+12)}
-ctx.restore();
-// Name plaque
-ctx.fillStyle=t.deep;rounded(82,760,916,128,26);ctx.fill();
-ctx.fillStyle=t.accent;ctx.fillRect(82,760,13,128);
-ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='bold 40px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('name').value||'আপনার নাম | Your Name',124,812,830,46,1);
-ctx.fillStyle=t.soft;ctx.font='26px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('designation').value||'আপনার পদবি | Your Designation',124,854,830,34,1);
-// Footer ribbon
-ctx.fillStyle=t.deep;ctx.fillRect(48,925,984,105);ctx.fillStyle=t.accent;ctx.fillRect(48,925,984,7);
-ctx.fillStyle=t.soft;ctx.textAlign='center';ctx.font='bold 30px Arial';ctx.fillText('iZma TRAVEL & TOUR',540,970);
-ctx.fillStyle='#fff';ctx.font='22px Arial';ctx.fillText('www.izmatravel.com',540,1006);
+// Name and designation ribbon, always clear and legible
+ctx.fillStyle=t.navy;ctx.beginPath();ctx.roundRect(85,915,910,88,18);ctx.fill();
+ctx.fillStyle=t.gold;ctx.fillRect(85,915,10,88);
+ctx.textAlign='left';ctx.fillStyle=t.white;ctx.font='bold 32px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('name').value||'আপনার নাম | Your Name',120,955,820,36,1);
+ctx.fillStyle='#dceeff';ctx.font='21px "Noto Sans Bengali","Hind Siliguri",Arial,sans-serif';wrapped($('designation').value||'আপনার পদবি | Your Designation',120,985,820,27,1);
+ctx.fillStyle=t.navy;ctx.fillRect(0,1020,W,60);ctx.fillStyle=t.gold;ctx.textAlign='center';ctx.font='bold 23px Arial';ctx.fillText('iZma TRAVEL & TOUR  •  www.izmatravel.com',540,1058);
 }
 $('download').onclick=()=>{draw();const a=document.createElement('a');a.download='izma-greeting-card.png';a.href=canvas.toDataURL('image/png');a.click()};
 $('share').onclick=()=>{draw();canvas.toBlob(async blob=>{if(!blob)return;const file=new File([blob],'izma-greeting-card.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({title:'My greeting card | iZma Travel & Tour',files:[file]});else{$('download').click();alert('Card downloaded. Share it on Facebook or WhatsApp.')}}catch(e){if(e.name!=='AbortError')alert('Please use Download PNG to save your card.')}},'image/png')};draw();
